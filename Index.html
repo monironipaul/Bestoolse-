@@ -1,0 +1,466 @@
+
+<!doctype html>
+
+<html lang="bn">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Bestoolse – Free Online Tools (7-in-1)</title>
+  <meta name="description" content="Bestoolse.shop – 7টি দ্রুত অনলাইন টুল: Word Counter, PDF → PNG, Image Compressor, QR Code Generator, YouTube Thumbnail Downloader, Unit Converter, Password Generator."/>
+  <meta name="theme-color" content="#111827"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛠️%3C/text%3E%3C/svg%3E">  <!-- 🟢 Minimal, professional, neon/RGB aesthetic -->  <style>
+    :root{
+      --bg:#0b0f17; --panel:#0f1623; --card:#121a2a; --muted:#94a3b8; --txt:#e5ecff; --accent:#6ee7ff; --accent2:#a78bfa; --good:#22c55e; --bad:#ef4444;
+      --radius:18px; --softshadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--txt);font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial;}
+
+    /* Side RGB glow strips */
+    .rgb-left,.rgb-right{position:fixed;top:0;bottom:0;width:10px;z-index:0;filter:blur(10px);opacity:.8}
+    .rgb-left{left:-2px;background:linear-gradient(180deg,#00f0ff, #ff00e0, #00ff7e, #a78bfa, #00f0ff);background-size:100% 300%;animation:shift 10s linear infinite}
+    .rgb-right{right:-2px;background:linear-gradient(180deg,#a78bfa, #00ff7e, #ff00e0, #00f0ff, #a78bfa);background-size:100% 300%;animation:shift 12s linear infinite}
+    @keyframes shift{0%{background-position:0 0}100%{background-position:0 300%}}
+
+    header{position:sticky;top:0;z-index:5;background:linear-gradient(180deg,rgba(15,22,35,.95) 0%, rgba(15,22,35,.65) 100%);backdrop-filter:blur(6px);border-bottom:1px solid rgba(110,231,255,.15)}
+    .bar{max-width:1150px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:14px 18px}
+    .logo{width:42px;height:42px;border-radius:12px;background:radial-gradient(120% 120% at 0% 0%, #6ee7ff 0, #a78bfa 60%, transparent 100%);display:flex;align-items:center;justify-content:center;color:#0b0f17;font-weight:800;box-shadow:0 0 30px rgba(110,231,255,.35) inset}
+    .title{font-weight:800;letter-spacing:.3px}
+
+    .wrap{max-width:1150px;margin:0 auto;padding:18px;display:grid;grid-template-columns:260px 1fr;gap:18px}
+
+    /* Sidebar */
+    nav{position:sticky;top:70px;align-self:start;background:var(--panel);border-radius:var(--radius);box-shadow:var(--softshadow);padding:12px}
+    .nav-title{font-size:14px;color:var(--muted);margin:6px 10px}
+    .nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:6px;border-radius:12px;color:var(--txt);text-decoration:none;border:1px solid transparent}
+    .nav a:hover{border-color:rgba(110,231,255,.25);background:linear-gradient(90deg,rgba(110,231,255,.05), rgba(167,139,250,.05))}
+    .nav a.active{border-color:rgba(110,231,255,.4);box-shadow:0 0 0 2px rgba(110,231,255,.15) inset}
+
+    /* Content */
+    main{position:relative;z-index:1}
+    section.tool{background:var(--panel);border-radius:var(--radius);box-shadow:var(--softshadow);padding:16px;margin-bottom:18px;border:1px solid rgba(110,231,255,.12)}
+    h2{margin:0 0 8px 0;font-size:20px}
+    p.lead{margin:0 0 14px 0;color:var(--muted)}
+
+    .card{background:var(--card);border-radius:14px;padding:12px;border:1px solid rgba(167,139,250,.12)}
+    .row{display:flex;flex-wrap:wrap;gap:10px}
+
+    textarea, input[type="text"], input[type="number"], select{width:100%;padding:12px 12px;border-radius:12px;border:1px solid rgba(110,231,255,.15);background:#0e1523;color:var(--txt);outline:none}
+    textarea{min-height:220px;resize:vertical}
+
+    button{border:0;border-radius:12px;padding:10px 14px;background:linear-gradient(90deg,#6ee7ff,#a78bfa);color:#0b0f17;font-weight:800;cursor:pointer}
+    button.ghost{background:transparent;color:var(--txt);border:1px solid rgba(110,231,255,.25)}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:10px}
+    .stat{background:#0e1523;border:1px solid rgba(110,231,255,.15);border-radius:12px;padding:10px;text-align:center}
+    .stat .n{font-size:18px;font-weight:800}
+    .stat .l{font-size:12px;color:var(--muted)}
+
+    .progress{height:10px;background:#0e1523;border-radius:999px;border:1px solid rgba(110,231,255,.2);overflow:hidden}
+    .progress>span{display:block;height:100%;width:0%;background:linear-gradient(90deg,#22c55e,#6ee7ff);transition:width .25s ease}
+
+    /* Pretty iOS-like switches */
+    .switch{position:relative;display:inline-block;width:54px;height:30px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#1f2937;border:1px solid rgba(110,231,255,.2);transition:.2s;border-radius:999px}
+    .slider:before{position:absolute;content:"";height:22px;width:22px;left:4px;top:3px;background:radial-gradient(120% 120% at 30% 30%, #fff, #c7d2fe);transition:.2s;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+    .switch input:checked + .slider{background:linear-gradient(90deg,#6ee7ff,#a78bfa);box-shadow:0 0 20px rgba(110,231,255,.35)}
+    .switch input:checked + .slider:before{transform:translateX(24px)}
+
+    footer{color:var(--muted);text-align:center;padding:18px}
+
+    @media (max-width:980px){.wrap{grid-template-columns:1fr}}
+  </style>  <!-- Libraries for specific tools -->  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.min.js"></script>  <script>
+    // pdf.js worker
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/build/pdf.worker.min.js";
+  </script>  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>  <!-- JSON-LD Schema for SEO -->  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"Bestoolse.shop",
+    "url":"https://bestoolse.shop",
+    "description":"7-in-1 free online tools running on your device: Word Counter, PDF to PNG, Image Compressor, QR Codes, YouTube Thumbnail, Unit Converter, Password Generator.",
+    "inLanguage":"bn"
+  }
+  </script></head>
+<body>
+  <div class="rgb-left"></div>
+  <div class="rgb-right"></div>  <header>
+    <div class="bar">
+      <div class="logo">BS</div>
+      <div class="title">Bestoolse – Free Tools</div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px">
+        <span style="font-size:12px;color:var(--muted)">RGB Glow</span>
+        <label class="switch"><input id="glowToggle" type="checkbox" checked><span class="slider"></span></label>
+        <span style="font-size:12px;color:var(--muted)">Dark UI</span>
+        <label class="switch"><input id="darkToggle" type="checkbox" checked><span class="slider"></span></label>
+      </div>
+    </div>
+  </header>  <div class="wrap">
+    <nav>
+      <div class="nav-title">Tools</div>
+      <div class="nav" id="nav">
+        <a href="#word-counter" class="active">📝 Word Counter</a>
+        <a href="#pdf-png">📄 PDF → PNG (On-Device)</a>
+        <a href="#image-compress">🖼️ Image Compressor</a>
+        <a href="#qr">🔳 QR Generator</a>
+        <a href="#yt-thumb">▶️ YouTube Thumbnail</a>
+        <a href="#unit">📏 Unit Converter</a>
+        <a href="#password">🔐 Password Generator</a>
+        <a href="#about">ℹ️ About Me</a>
+      </div>
+      <div class="card" style="margin-top:10px">
+        <strong>No Login Needed</strong><br/>
+        সব টুল আপনার ডিভাইসেই রান করে – আপনার ডাটা আমাদের সার্ভারে যায় না।
+      </div>
+    </nav><main>
+  <!-- 1) WORD COUNTER -->
+  <section id="word-counter" class="tool">
+    <h2>📝 Word Counter</h2>
+    <p class="lead">লাইভভাবে শব্দ, ক্যারেক্টার, বাক্য এবং পড়ার সময় দেখুন।</p>
+    <div class="card">
+      <label for="wc_input">আপনার টেক্সট পেস্ট করুন</label>
+      <textarea id="wc_input" placeholder="এখানে লিখুন বা পেস্ট করুন..."></textarea>
+      <div class="stats">
+        <div class="stat"><div class="n" id="wc_words">0</div><div class="l">Words</div></div>
+        <div class="stat"><div class="n" id="wc_chars">0</div><div class="l">Chars (with space)</div></div>
+        <div class="stat"><div class="n" id="wc_chars_ns">0</div><div class="l">Chars (no space)</div></div>
+        <div class="stat"><div class="n" id="wc_sent">0</div><div class="l">Sentences</div></div>
+        <div class="stat"><div class="n" id="wc_read">0 min</div><div class="l">Read time</div></div>
+      </div>
+      <div class="btn-row" style="margin-top:10px">
+        <button id="wc_copy">Copy</button>
+        <button class="ghost" id="wc_clear">Clear</button>
+        <button class="ghost" id="wc_download">Download .txt</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2) PDF → PNG (on-device via pdf.js) -->
+  <section id="pdf-png" class="tool">
+    <h2>📄 PDF → PNG (On-Device)</h2>
+    <p class="lead">সার্ভার ছাড়াই আপনার ডিভাইসেই PDF পেজগুলোকে PNG ইমেজে রূপান্তর করুন।</p>
+    <div class="card">
+      <input type="file" id="pdf_file" accept="application/pdf"/>
+      <div class="progress" style="margin:10px 0"><span id="pdf_prog"></span></div>
+      <div class="btn-row">
+        <button id="pdf_start">Convert</button>
+        <button class="ghost" id="pdf_clear">Clear Output</button>
+      </div>
+      <div id="pdf_output" class="row" style="margin-top:10px"></div>
+      <p class="lead" style="margin-top:8px">টিপ: বড় PDF হলে একটু সময় লাগতে পারে। নিচের প্রগ্রেস বারে শতাংশ দেখাবে।</p>
+    </div>
+  </section>
+
+  <!-- 3) IMAGE COMPRESSOR -->
+  <section id="image-compress" class="tool">
+    <h2>🖼️ Image Compressor & Resizer</h2>
+    <p class="lead">ইমেজের সাইজ কমান বা ডাইমেনশন রিসাইজ করুন – সব আপনার ডিভাইসেই।</p>
+    <div class="card">
+      <div class="row">
+        <input type="file" id="ic_file" accept="image/*">
+        <div class="row" style="width:100%">
+          <div style="flex:1">
+            <label>Max Width (px)</label>
+            <input type="number" id="ic_w" value="1280" min="64">
+          </div>
+          <div style="flex:1">
+            <label>Quality (0.1–1)</label>
+            <input type="number" id="ic_q" value="0.8" min="0.1" max="1" step="0.1">
+          </div>
+        </div>
+      </div>
+      <div class="progress" style="margin:10px 0"><span id="ic_prog"></span></div>
+      <div class="btn-row">
+        <button id="ic_start">Compress</button>
+        <button class="ghost" id="ic_clear">Clear</button>
+      </div>
+      <div id="ic_output" class="row" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- 4) QR Code Generator -->
+  <section id="qr" class="tool">
+    <h2>🔳 QR Code Generator</h2>
+    <p class="lead">যেকোনো টেক্সট/লিংক থেকে কিউআর কোড বানান।</p>
+    <div class="card">
+      <input type="text" id="qr_text" placeholder="টেক্সট বা URL দিন">
+      <div class="btn-row" style="margin-top:10px">
+        <label class="switch"><input id="qr_invert" type="checkbox"><span class="slider"></span></label>
+        <span style="align-self:center;color:var(--muted);font-size:12px">Invert (Dark/Light)</span>
+        <button id="qr_make">Generate</button>
+        <button class="ghost" id="qr_dl">Download PNG</button>
+      </div>
+      <div id="qr_box" style="display:flex;justify-content:center;align-items:center;min-height:200px;margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- 5) YouTube Thumbnail Downloader -->
+  <section id="yt-thumb" class="tool">
+    <h2>▶️ YouTube Thumbnail Downloader</h2>
+    <p class="lead">YouTube URL পেস্ট করুন – থাম্বনেইলের বিভিন্ন সাইজ ডাউনলোড করুন।</p>
+    <div class="card">
+      <input type="text" id="yt_url" placeholder="YouTube ভিডিও লিংক দিন">
+      <div class="btn-row" style="margin-top:10px">
+        <button id="yt_get">Get Thumbnails</button>
+      </div>
+      <div id="yt_out" class="row" style="margin-top:10px"></div>
+      <p class="lead">নোট: কপিরাইটেড ভিডিও কনটেন্ট ডাউনলোড নয় – কেবল পাবলিক থাম্বনেইল ইমেজ।</p>
+    </div>
+  </section>
+
+  <!-- 6) Unit Converter -->
+  <section id="unit" class="tool">
+    <h2>📏 Unit Converter</h2>
+    <p class="lead">দৈর্ঘ্য, ওজন, তাপমাত্রা – দ্রুত কনভার্ট করুন।</p>
+    <div class="card">
+      <div class="row">
+        <select id="uc_type">
+          <option value="len">Length (m ⇄ cm ⇄ km)</option>
+          <option value="wt">Weight (kg ⇄ g ⇄ lb)</option>
+          <option value="temp">Temperature (°C ⇄ °F ⇄ K)</option>
+        </select>
+        <input type="number" id="uc_val" placeholder="Value" value="1">
+      </div>
+      <div class="btn-row" style="margin-top:10px">
+        <button id="uc_calc">Convert</button>
+      </div>
+      <div id="uc_out" class="stats" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <!-- 7) Password Generator -->
+  <section id="password" class="tool">
+    <h2>🔐 Password Generator</h2>
+    <p class="lead">দৃঢ় পাসওয়ার্ড তৈরি করুন – লেন্থ, সংখ্যা, সিম্বল কাস্টমাইজ করুন।</p>
+    <div class="card">
+      <div class="row">
+        <label style="flex:1">Length
+          <input type="number" id="pg_len" min="6" max="64" value="16">
+        </label>
+        <label style="display:flex;align-items:center;gap:8px">Uppercase
+          <span class="switch"><input id="pg_u" type="checkbox" checked><span class="slider"></span></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px">Numbers
+          <span class="switch"><input id="pg_n" type="checkbox" checked><span class="slider"></span></span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px">Symbols
+          <span class="switch"><input id="pg_s" type="checkbox" checked><span class="slider"></span></span>
+        </label>
+      </div>
+      <div class="btn-row" style="margin-top:10px">
+        <button id="pg_make">Generate</button>
+        <button class="ghost" id="pg_copy">Copy</button>
+      </div>
+      <div class="card" style="margin-top:10px"><code id="pg_out" style="font-size:18px"></code></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="tool">
+    <h2>ℹ️ About Me</h2>
+    <div class="card">
+      <p style="margin-top:0">স্বাগতম <strong>Bestoolse.shop</strong> এ — সবার জন্য ফ্রি ও দ্রুত অনলাইন টুলস। আমাদের লক্ষ্য হলো সহজ, নিরাপদ ও মোবাইল‑ফ্রেন্ডলি টুলস তৈরি করা যা সম্পূর্ণভাবে আপনার ডিভাইসেই রান করে, যাতে আপনার ডাটা নিরাপদ থাকে।</p>
+      <ul>
+        <li>🔒 কোন লগইন দরকার নেই</li>
+        <li>⚡ সব টুল ব্রাউজারেই প্রসেস হয়</li>
+        <li>🌈 RGB গ্লো ডিজাইন – চোখে আরামদায়ক, আধুনিক</li>
+      </ul>
+      <p><strong>যোগাযোগ:</strong> monipaul863@gmail.com</p>
+      <p style="color:var(--muted);font-size:14px">পরবর্তীতে নতুন টুল যুক্ত হবে – মতামত জানাতে ইমেল করুন।</p>
+    </div>
+  </section>
+
+  <footer>© Bestoolse.shop – Free tools that respect your privacy.</footer>
+</main>
+
+  </div>  <script>
+    // ===== Nav active state =====
+    const navLinks=[...document.querySelectorAll('#nav a')];
+    function setActive(){
+      const h=location.hash||'#word-counter';
+      navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href')===h));
+    }
+    window.addEventListener('hashchange', setActive); setActive();
+
+    // ===== RGB glow toggle & dark toggle (demo) =====
+    const glowToggle=document.getElementById('glowToggle');
+    glowToggle.addEventListener('change',()=>{
+      document.querySelector('.rgb-left').style.display=glowToggle.checked?'block':'none';
+      document.querySelector('.rgb-right').style.display=glowToggle.checked?'block':'none';
+    });
+    const darkToggle=document.getElementById('darkToggle');
+    darkToggle.addEventListener('change',()=>{
+      document.documentElement.style.setProperty('--bg', darkToggle.checked?'#0b0f17':'#f7fafc');
+      document.documentElement.style.setProperty('--panel', darkToggle.checked?'#0f1623':'#ffffff');
+      document.documentElement.style.setProperty('--card', darkToggle.checked?'#121a2a':'#f7fbff');
+      document.documentElement.style.setProperty('--txt', darkToggle.checked?'#e5ecff':'#0b1020');
+    });
+
+    // ===== WORD COUNTER =====
+    const wcInput = document.getElementById('wc_input');
+    const wc_words = document.getElementById('wc_words');
+    const wc_chars = document.getElementById('wc_chars');
+    const wc_chars_ns = document.getElementById('wc_chars_ns');
+    const wc_sent = document.getElementById('wc_sent');
+    const wc_read = document.getElementById('wc_read');
+    function wcCalc(){
+      const t = wcInput.value || '';
+      const trimmed=t.trim();
+      const words = trimmed? trimmed.split(/\s+/).filter(Boolean).length:0;
+      const chars = t.length; const charsNS = t.replace(/\s/g,'').length;
+      const sents = (trimmed.match(/[\.!?]+/g)||[]).length || (words?1:0);
+      const read = words? Math.max(1, Math.round(words/200)):0;
+      wc_words.textContent=words; wc_chars.textContent=chars; wc_chars_ns.textContent=charsNS; wc_sent.textContent=sents; wc_read.textContent=read+" min";
+    }
+    wcInput.addEventListener('input', wcCalc); wcCalc();
+    document.getElementById('wc_copy').onclick=()=>{navigator.clipboard.writeText(wcInput.value||'')};
+    document.getElementById('wc_clear').onclick=()=>{wcInput.value=''; wcCalc();};
+    document.getElementById('wc_download').onclick=()=>{const blob=new Blob([wcInput.value||''],{type:'text/plain'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='text.txt'; a.click(); URL.revokeObjectURL(a.href)};
+
+    // ===== PDF → PNG =====
+    const pdfFile = document.getElementById('pdf_file');
+    const pdfStart = document.getElementById('pdf_start');
+    const pdfClear = document.getElementById('pdf_clear');
+    const pdfProg = document.getElementById('pdf_prog');
+    const pdfOut = document.getElementById('pdf_output');
+    pdfStart.onclick = async () => {
+      const file = pdfFile.files?.[0];
+      if(!file){alert('একটি PDF ফাইল সিলেক্ট করুন'); return;}
+      pdfOut.innerHTML=''; pdfProg.style.width='0%';
+      const buf = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
+      for(let p=1;p<=pdf.numPages;p++){
+        const page = await pdf.getPage(p);
+        const viewport = page.getViewport({scale:2});
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = viewport.width; canvas.height = viewport.height;
+        await page.render({canvasContext:ctx, viewport}).promise;
+        const url = canvas.toDataURL('image/png');
+        const img = new Image(); img.src=url; img.style.maxWidth='100%'; img.style.borderRadius='12px';
+        const card = document.createElement('div'); card.className='card'; card.style.flex='1 1 280px';
+        const dl=document.createElement('button'); dl.textContent='Download PNG'; dl.className='ghost'; dl.onclick=()=>{const a=document.createElement('a'); a.href=url; a.download=`page-${p}.png`; a.click();};
+        card.appendChild(img); card.appendChild(document.createElement('br')); card.appendChild(dl);
+        pdfOut.appendChild(card);
+        const pct = Math.round((p/pdf.numPages)*100); pdfProg.style.width=pct+'%';
+      }
+    };
+    pdfClear.onclick = ()=>{pdfOut.innerHTML=''; pdfProg.style.width='0%'; pdfFile.value='';};
+
+    // ===== Image Compressor =====
+    const icFile=document.getElementById('ic_file');
+    const icW=document.getElementById('ic_w');
+    const icQ=document.getElementById('ic_q');
+    const icStart=document.getElementById('ic_start');
+    const icProg=document.getElementById('ic_prog');
+    const icOut=document.getElementById('ic_output');
+    icStart.onclick=()=>{
+      const file=icFile.files?.[0]; if(!file){alert('একটি ইমেজ দিন'); return;}
+      const img=new Image(); img.onload=()=>{
+        const maxW=parseInt(icW.value||'1280',10);
+        const scale=Math.min(1, maxW/img.width);
+        const w=Math.round(img.width*scale), h=Math.round(img.height*scale);
+        const cvs=document.createElement('canvas'); cvs.width=w; cvs.height=h; const ctx=cvs.getContext('2d');
+        // Simulated staged progress while drawing large images
+        let chunks=8, step=0; icProg.style.width='5%';
+        function drawChunk(){
+          const sliceH=Math.ceil(h/chunks);
+          const sy=step*sliceH; const sh=Math.min(sliceH, h-sy);
+          ctx.drawImage(img, 0, sy/scale, img.width, sh/scale, 0, sy, w, sh);
+          step++; icProg.style.width=Math.min(95, Math.round((step/chunks)*90)+5)+'%';
+          if(step<chunks){ requestAnimationFrame(drawChunk);} else {
+            const q=Math.min(1, Math.max(.1, parseFloat(icQ.value||'0.8')));
+            cvs.toBlob(blob=>{
+              const url=URL.createObjectURL(blob);
+              const before=(file.size/1024).toFixed(0);
+              fetch(url).then(r=>r.blob()).then(b=>{
+                const after=(b.size/1024).toFixed(0);
+                const card=document.createElement('div'); card.className='card'; card.style.flex='1 1 280px';
+                const preview=new Image(); preview.src=url; preview.style.maxWidth='100%'; preview.style.borderRadius='12px';
+                const meta=document.createElement('div'); meta.style.margin='6px 0'; meta.style.color='var(--muted)';
+                meta.textContent=`Size: ${before} KB → ${after} KB | ${w}×${h}`;
+                const dl=document.createElement('button'); dl.textContent='Download'; dl.className='ghost'; dl.onclick=()=>{const a=document.createElement('a'); a.href=url; a.download='compressed.jpg'; a.click();};
+                card.appendChild(preview); card.appendChild(meta); card.appendChild(dl); icOut.innerHTML=''; icOut.appendChild(card); icProg.style.width='100%';
+            });
+            }, 'image/jpeg', q);
+          }
+        }
+        drawChunk();
+      }; img.src=URL.createObjectURL(file);
+    };
+    document.getElementById('ic_clear').onclick=()=>{icOut.innerHTML=''; icProg.style.width='0%'; icFile.value='';};
+
+    // ===== QR Generator =====
+    const qrBox=document.getElementById('qr_box'); let qrCanvas=null; let qr;
+    function makeQR(){
+      const t=document.getElementById('qr_text').value||'';
+      if(!t){alert('টেক্সট/URL লিখুন'); return;}
+      const invert=document.getElementById('qr_invert').checked;
+      qrBox.innerHTML='';
+      const c=document.createElement('canvas');
+      QRCode.toCanvas(c, t, {width:256, color:{dark: invert?'#ffffff':'#000000', light: invert?'#00000000':'#ffffffff'}}, (e)=>{
+        if(e){alert('QR জেনারেট হয়নি'); return;}
+        c.style.borderRadius='12px'; c.style.background= invert?'#0e1523':'transparent';
+        qrBox.appendChild(c); qrCanvas=c;
+      });
+    }
+    document.getElementById('qr_make').onclick=makeQR;
+    document.getElementById('qr_dl').onclick=()=>{ if(!qrCanvas){alert('আগে Generate করুন'); return;} const a=document.createElement('a'); a.href=qrCanvas.toDataURL('image/png'); a.download='qrcode.png'; a.click(); };
+
+    // ===== YouTube Thumbnail =====
+    function ytId(u){
+      // Extracts video ID from typical formats
+      const m = u.match(/(?:v=|\.be\/|shorts\/|embed\/)([A-Za-z0-9_-]{6,})/);
+      return m? m[1] : null;
+    }
+    document.getElementById('yt_get').onclick=()=>{
+      const url=document.getElementById('yt_url').value.trim();
+      const id=ytId(url);
+      const out=document.getElementById('yt_out'); out.innerHTML='';
+      if(!id){out.innerHTML='<div class="card">Valid YouTube লিংক দিন</div>'; return;}
+      const sizes=['default.jpg','mqdefault.jpg','hqdefault.jpg','sddefault.jpg','maxresdefault.jpg'];
+      sizes.forEach(s=>{
+        const src=`https://img.youtube.com/vi/${id}/${s}`;
+        const card=document.createElement('div'); card.className='card'; card.style.flex='1 1 240px';
+        const img=new Image(); img.src=src; img.style.maxWidth='100%'; img.style.borderRadius='12px';
+        const dl=document.createElement('button'); dl.textContent='Download'; dl.className='ghost'; dl.onclick=()=>{const a=document.createElement('a'); a.href=src; a.download=`${id}-${s}`; a.click();};
+        card.appendChild(img); card.appendChild(document.createElement('br')); card.appendChild(dl); out.appendChild(card);
+      });
+    };
+
+    // ===== Unit Converter =====
+    document.getElementById('uc_calc').onclick=()=>{
+      const t=document.getElementById('uc_type').value; const v=parseFloat(document.getElementById('uc_val').value||'0');
+      const out=document.getElementById('uc_out'); out.innerHTML='';
+      const push=(label,val)=>{const el=document.createElement('div'); el.className='stat'; el.innerHTML=`<div class="n">${val}</div><div class="l">${label}</div>`; out.appendChild(el)};
+      if(t==='len'){
+        const m=v; const cm=m*100; const km=m/1000; push('Meters', m); push('Centimeters', cm); push('Kilometers', km);
+      }else if(t==='wt'){
+        const kg=v; const g=kg*1000; const lb=(kg*2.20462262).toFixed(4); push('Kilograms', kg); push('Grams', g); push('Pounds (lb)', lb);
+      }else{
+        const c=v; const f=(c*9/5+32).toFixed(2); const k=(c+273.15).toFixed(2); push('°C', c); push('°F', f); push('K', k);
+      }
+    };
+
+    // ===== Password Generator =====
+    function randRange(n){
+      const arr=new Uint32Array(n); crypto.getRandomValues(arr); return arr;
+    }
+    document.getElementById('pg_make').onclick=()=>{
+      const len=Math.max(6, Math.min(64, parseInt(document.getElementById('pg_len').value||'16',10)));
+      const useU=document.getElementById('pg_u').checked;
+      const useN=document.getElementById('pg_n').checked;
+      const useS=document.getElementById('pg_s').checked;
+      let pool='abcdefghijklmnopqrstuvwxyz'; if(useU) pool+='ABCDEFGHIJKLMNOPQRSTUVWXYZ'; if(useN) pool+='0123456789'; if(useS) pool+='!@#$%^&*()-_=+[]{};:,.?';
+      if(!pool){pool='abcdefghijklmnopqrstuvwxyz';}
+      const r=randRange(len); let out='';
+      for(let i=0;i<len;i++){ out += pool[r[i]%pool.length]; }
+      document.getElementById('pg_out').textContent=out;
+    };
+    document.getElementById('pg_copy').onclick=()=>{const t=document.getElementById('pg_out').textContent; if(t){navigator.clipboard.writeText(t)}};
+
+  </script></body>
+</html>
